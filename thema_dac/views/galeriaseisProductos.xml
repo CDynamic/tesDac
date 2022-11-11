@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        
+
+        <template id="galeriaseisProductos_snipet"  name="Producto">
+          <t t-call="website.layout">
+            <section class="product" >
+            <div class="container text-center">
+            </div>
+            <div class="container" style="max-width:1010px; text-align:center;">
+              <div class="row">
+
+              
+                <div class="col-2 col-lg-2 col-md-2 col-sm-2 product_sectoin">
+                    <div class="form-group">
+                    <t t-if="not dor">
+                        <button type="button" class="btn bthov"  style="width: 100%; height: 80px; background-color:#57a595;" >
+                            <a style="color:#fff;" t-att-href="'/get_main_product'">Todos</a>
+                        
+                        </button>
+                    </t>
+                    <t t-if="dor">
+                        <button type="button" class="btn bthov"  style="width: 100%; height: 80px; background-color:#fff;" >
+                            <a  t-att-href="'/get_main_product'">Todos</a>
+                        </button>
+                    </t>
+                </div>
+                    <t t-foreach="main_category" t-as="mp">
+                        <!-- Default dropright button -->
+                        <div class="form-group dropright">
+                            <t t-if="dor == mp.id ">
+                                <button type="button" class="btn bthov"  style="width: 100%; height: 80px; background-color:#57a595;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span  style="color:#fff;" t-esc="mp.name"/>
+                                </button>
+                            </t>
+                            <t t-if="not mp.id == dor">
+                                <button type="button" class="btn bthov"  style="width: 100%; height: 80px; background-color:#fff;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span t-esc="mp.name"/>
+                                </button>
+                            </t>
+                            <div class="dropdown-menu">
+                                <t t-foreach="main_sub_category" t-as="submp">
+                                    <t t-if="submp.parent_id == mp">
+                                        <!-- <div class="dropdown-divider"></div> -->
+                                        <t t-if="ids_t == submp.id ">
+                                            <a class="dropdown-item active"   t-att-href="'/get_main_product/%s' % slug(submp)">
+                                                <span t-esc="submp.name"/>
+                                            </a>
+                                        </t>
+                                        <t t-if="not ids_t == submp.id ">
+                                            <a class="dropdown-item" t-att-href="'/get_main_product/%s' % slug(submp)">
+                                                <span t-esc="submp.name"/>
+                                            </a>
+                                        </t>
+                                    </t>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+
+
+                <div class="col-10 product_sectoin">
+                    <div class="row">
+                        <t t-foreach="main_products" t-as="mp">
+
+                            <div class="card border-0 mr-4 mb-4" style="width: 16rem;">
+                                
+                                <div class="card-body">
+                                    <img class="card-img-top"  alt="" loading="lazy" t-att-src="'data:image/png;base64,%s' % to_text(mp.image)"/>
+                                </div>
+                                <div class="card-footer bg-transparent border-0">
+                                    <a href="#" class="card-link"><span t-esc="mp.name"/></a>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </section>
+        </t>
+            
+        </template>
+    </data>
+</odoo>
+<!-- "error": "'website' Traceback (most recent call last): File "C:\odoo\server\odoo\addons\base\models\qweb.py", line 219, in render_template yield from compiled_fn(self, values, log) File "<template_787>", line 75, in template_787 KeyError: 'website' Error when render the template KeyError: 'website' Template: website.layout Path: /t/html/t[2] Node: <t t-set="x_icon" t-value="website.image_url(website, 'favicon')"/> " -->

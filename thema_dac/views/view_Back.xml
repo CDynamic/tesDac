@@ -1,0 +1,332 @@
+<odoo>
+    <data>
+    
+        <record id="view_thema_dac_WebProducts_form" model="ir.ui.view">
+            <field name="name">view.thema.dac.products.form</field>
+            <field name="model">thema_dac.products</field>
+            <field name="arch" type="xml">
+                <form string="Productos">
+                    <sheet>
+                       
+                        <group name="group_top">
+                            <group name="group_left">
+                                <field name="name"/>
+                                <field name="date"/>
+                                <field name="status"/>
+                                
+                            </group>
+                            <group name="group_right">
+                                <field name="description"/>
+                                <field name="category"/>
+                                <field name="category_sub"/>
+                                <field name="Published"/>
+                                <field name="image" widget="image"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_thema_dac_WebProducts_tree" model="ir.ui.view">
+            <field name="name">view.thema.dac.products.tree</field>
+            <field name="model">thema_dac.products</field>
+            <field name="arch" type="xml">
+                <tree string="Visit">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="status"/>
+                    <field name="description"/>
+                    <field name="category"/>
+                    <field name="Published"/>
+                    <!-- <field name="image" widget="image"/>  -->
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_thema_dac_WebProducts_kanban" model="ir.ui.view">
+            <field name="name">view.thema.dac.products.kanban</field>
+            <field name="model">thema_dac.products</field>
+            <field name="arch" type="xml">
+                <kanban class="o_thema_dac_WebProducts_kanban">
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="date"/>
+                    <field name="category"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="o_kanban_image">
+                                    <img alt="Avatar"
+                                         t-att-src="kanban_image('thema_dac.products', 'image', record.id.raw_value)"/>
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name"/>
+                                        <field name="description"/>
+                                    </strong>
+                                    <div t-if="record.date.value">
+                                        <t t-esc="record.date.value"/>
+                                    </div>
+                                    <div t-if="record.category.value">
+                                        <t t-esc="record.category.value"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        
+        <!-- Productos -->
+        <record id="action_thema_dac_WebProducts_view" model="ir.actions.act_window">
+            <field name="name">Productos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">thema_dac.products</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Visitas
+                </p>
+                <p>
+                    Click 'Nuevo' para añadir nuevos elementos
+                </p>
+            </field>
+        </record>
+        
+        <!-- contacto -->
+
+        <record id="view_thema_dac_contacts_form" model="ir.ui.view">
+            <field name="name">view.thema.dac.contacts.form</field>
+            <field name="model">thema_dac.contacts</field>
+            <field name="arch" type="xml">
+                <form string="Productos">
+                    <sheet>
+                       
+
+
+                        <group name="group_top">
+                            <group name="group_left">
+                                <field name= "name"/>
+                                <field name= "description"/>
+                                <field name= "hors"/>
+                                <field name= "website_leaflet_lat"/>
+                                <field name= "website_leaflet_lng"/>
+                                <field name= "country_id"/>
+                                <field name= "state_id"/>
+                                <templates>
+                                    <div id="map" style="height:300px;width:300px;"></div>
+                                </templates>
+                            </group>
+                            <group name="group_right">
+                                <field name= "website_leaflet_enable"/>
+                                <field name= "municipality_id"/>
+                                <field name= "parish_id"/>
+                                <field name= "date"/>
+                                <field name= "status"/>
+                                <field name= "type"/>
+                                <field name= "domcument_type"/>
+                                <field name= "image"/>
+                                 
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+       
+
+        <record id="view_thema_dac_contacts_kanban" model="ir.ui.view">
+            <field name="name">view.thema.dac.contacts.kanban</field>
+            <field name="model">thema_dac.contacts</field>
+            <field name="arch" type="xml">
+                <kanban class="o_thema_dac_WebProducts_kanban">
+                    <field name= "name"/>
+                    <field name= "description"/>
+                    <field name= "date"/>
+                    <field name= "status"/>
+                    <field name= "type"/>
+                    <field name= "domcument_type"/>
+                    
+                    <field name= "image"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="o_kanban_image">
+                                    <img alt="Avatar"
+                                         t-att-src="kanban_image('thema_dac.contacts', 'image', record.id.raw_value)"/>
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name"/>
+                                        <field name="description"/>
+                                    </strong>
+                                    <div t-if="record.date.value">
+                                        <t t-esc="record.date.value"/>
+                                    </div>
+                                    <div t-if="record.domcument_type.value">
+                                        <t t-esc="record.domcument_type.value"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="view_thema_dac_contacts_tree" model="ir.ui.view">
+            <field name="name">view.thema.dac.contacts.tree</field>
+            <field name="model">thema_dac.contacts</field>
+            <field name="arch" type="xml">
+                <tree string="Comtact">
+
+                    <field name= "name"/>
+                    <field name= "description"/>
+                    <field name= "country_id"/>
+                    <field name= "date"/>
+                    <field name= "status"/>
+                    <field name= "type"/>
+                    <field name= "domcument_type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_thema_dac_contacts_view" model="ir.actions.act_window">
+            <field name="name">Contacts</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">thema_dac.contacts</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Contacto
+                </p>
+                <p>
+                    Click 'Nuevo' para añadir nuevos elementos
+                </p>
+            </field>
+        </record>
+
+<!-- categoria de producto  -->
+        <record id="view_thema_dac_category_form" model="ir.ui.view">
+            <field name="name">view.thema.dac.category.form</field>
+            <field name="model">thema_dac.category</field>
+            <field name="arch" type="xml">
+                <form string="Productos">
+                    <sheet>
+                       
+                        <group name="group_top">
+                            <group name="group_left">
+                                <field name= "name"/>
+                                <field name= "description"/>
+                            </group>
+                            <group name="group_right">
+                                <field name= "status"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_thema_dac_category_tree" model="ir.ui.view">
+            <field name="name">view.thema.dac.category.tree</field>
+            <field name="model">thema_dac.category</field>
+            <field name="arch" type="xml">
+                <tree string="Comtact">
+
+                    <field name= "name"/>
+                    <field name= "description"/>
+                    <field name= "status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_thema_dac_category_view" model="ir.actions.act_window">
+            <field name="name">Categoria</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">thema_dac.category</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Category
+                </p>
+                <p>
+                    Click 'Nuevo' para añadir nuevos elementos
+                </p>
+            </field>
+        </record>
+
+
+<!-- categoria sub de producto  -->
+        <record id="view_thema_dac_category_sub_form" model="ir.ui.view">
+            <field name="name">view.thema.dac.sub.category.form</field>
+            <field name="model">thema_dac.sub_category</field>
+            <field name="arch" type="xml">
+                <form string="Productos">
+                    <sheet>
+                       
+                        <group name="group_top">
+                            <group name="group_left">
+                                <field name= "name"/>
+                                <field name= "description"/>
+                            </group>
+                            <group name="group_right">
+                                <field name= "category"/>
+                                <field name= "status"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_thema_dac_category_sub_tree" model="ir.ui.view">
+            <field name="name">view.thema.dac.sub.category.tree</field>
+            <field name="model">thema_dac.sub_category</field>
+            <field name="arch" type="xml">
+                <tree string="Comtact">
+
+                    <field name= "name"/>
+                    <field name= "description"/>
+                    <field name= "status"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_thema_dac_category_sub_view" model="ir.actions.act_window">
+            <field name="name">Sub Categoria</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">thema_dac.sub_category</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Category
+                </p>
+                <p>
+                    Click 'Nuevo' para añadir nuevos elementos
+                </p>
+            </field>
+        </record>
+
+
+       
+        <menuitem id="menu_product_web" parent="website.menu_website_configuration"
+            sequence="99" name="Tema" />
+
+        <menuitem id="menu_product_web_items" name="Producto" parent="menu_product_web" 
+            sequence="3" action="action_thema_dac_WebProducts_view" />
+
+        <menuitem id="menu_contactos_web_items" name="Contactos" parent="menu_product_web" 
+            sequence="4" action="action_thema_dac_contacts_view" />
+
+        <menuitem id="menu_categoria_web_items_cat" name="Categorias" parent="menu_product_web" sequence="1" action="action_thema_dac_category_view" />
+
+        <menuitem id="menu_sub_categoria_web_items" name="Sub Categoria" parent="menu_product_web" sequence="2" action="action_thema_dac_category_sub_view" />
+
+    </data>
+</odoo>
